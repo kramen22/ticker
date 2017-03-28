@@ -22,4 +22,12 @@ public class Parser{
 
 	return;
     }
+
+    public void parseData(){
+	String[] rows = returndata.split("\n");
+
+	for(int i = 0; i < rows.length; i++){
+	    System.out.print(rows[i] + "  bitch\n");
+	}
+    }
 }

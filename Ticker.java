@@ -57,7 +57,7 @@ public class Ticker{
 	}
 	
 	while(true){
-	    parse.printstuff();
+	    parse.parseData();
 	    try {
 		TimeUnit.SECONDS.sleep(10);
 	    } catch(InterruptedException ex) {
