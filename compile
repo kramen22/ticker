@@ -1,0 +1,3 @@
+#!/bin/bash
+javac -classpath /lib/commons-io-2.4.jar Ticker.java Portfolio.java PortfolioItem.java Parser.java 
+
