@@ -1,29 +1,40 @@
 package javastuff;
 
-public class PortfolioItem{
+import yahoofinance.*;
+import java.io.*;
 
-    private String handle, name;
-    private float bid, ask, open, lastClose, lastTick;
+public class PortfolioItem {
 
-    public PortfolioItem(String handle, String name, float bid, float ask, float open, float lastClose, float lastTick){
-	this.handle = handle;
-	this.name = name;
-	this.bid = bid;
-	this.ask = ask;
-	this.open = open;
-	this.lastClose = lastClose;
-	this.lastTick = lastTick;
-    }
+    private Stock stock;
+    private String name;
 
-    public boolean setLastTick(float newTick){
+    public PortfolioItem(String str){
 
-	if(newTick != 0){
-	    this.lastTick = newTick;
-	    return true;
+	try{
+	    this.stock = YahooFinance.get(str);
+	}catch (IOException e){
+	    e.printStackTrace();
 	}
-	return false;
 
+	this.name = str;
+	    
     }
 
+    public String getName(){
+
+	return this.name;
+	    
+    }
+
+    public Stock getStock(){
+
+	return this.stock;
+	
+    }
+
+    public void print(){
+	this.stock.print();
+    }
+    
 }
 

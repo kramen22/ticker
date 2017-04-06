@@ -7,64 +7,29 @@ import java.util.concurrent.TimeUnit;
 
 public class Ticker{
 
-    private static String str = "";
-    private static String part1 = "http://finance.yahoo.com/d/quotes.csv?s=";
-    private static String part3 = "&f=snbaopl1";
+    //list of stocks to collect data on
 
-    private static Parser parse;
+    static String[] handles = {"AAPL", "CHK", "GOOGL"};
 
-    public static void createPortfolio()
-    {
-	boolean gettingHandles = true;
-	char response;
-	String stockhandle;
-	Scanner scan = new Scanner(System.in);
-	
-	while(gettingHandles){
-	    System.out.println("Enter the stock you wish to see: ");
-	    stockhandle = scan.next();
-	    str = str + stockhandle + "+";
-	    System.out.println("Would you like to add more?[y/n]: ");
-	    response = scan.next().charAt(0);
-	    if(response == 'n')
-		gettingHandles = false;
-	}
-	scan.close();
-	
-	str = str.substring(0, str.length() - 1);
-	
-	str = part1 + str + part3;
-    }
+    public static void main(String args[]){
 
-    public static int createTickerData()
-    {
-	try{
-	    parse = new Parser(str);
-	}catch(IOException e){
-	    e.printStackTrace();
-	    return 1;
-	}
-	return 0;
-    }
+	Portfolio portfolio = new Portfolio();
 
-    public static void main(String args[])
-    {
-	createPortfolio();
-	
-	if(createTickerData() == 1){
-	    System.out.println("The Handles you entered were incorrect");
-	    return;
+	for(String str : handles){
+
+	    portfolio.addItem(str);
+
 	}
-	
-	while(true){
-	    parse.parseData();
-	    try {
-		TimeUnit.SECONDS.sleep(10);
-	    } catch(InterruptedException ex) {
-		Thread.currentThread().interrupt();
-	    }
-	    createTickerData();
-	}
+
+	//print data of stocks
+
+	// portfolio.printData();
+
+	//print the history of the stocks
+
+	Parser parser = new Parser(portfolio);
+
+	parser.printHistoricalData();
 	
     }
 

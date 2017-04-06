@@ -1,33 +1,45 @@
 // This is a test comment
 package javastuff;
 
-import java.net.*;
+import yahoofinance.histquotes.*;
+import yahoofinance.*;
 import java.io.*;
-import org.apache.commons.io.*;
 
 public class Parser{
 
-    private String completeURL, returndata;
+    private Portfolio portfolio;
 
-    private URL url;
-
-    public Parser(String str) throws IOException{
-	completeURL = str;
-	url = new URL(str);
-	returndata = IOUtils.toString(url);
+    public Parser(Portfolio port){
+	this.portfolio = port;
     }
 
-    public void printstuff(){
-	System.out.print(returndata);
+    public void printHistoricalData(){
 
-	return;
-    }
+	try{
+	    PrintWriter writer = new PrintWriter("historicaldata.txt", "UTF-8");
 
-    public void parseData(){
-	String[] rows = returndata.split("\n");
+	    for(PortfolioItem item : portfolio.getPortfolio()){
 
-	for(int i = 0; i < rows.length; i++){
-	    System.out.print(rows[i] + "  bitch\n");
+		try{
+
+		    //for debugging
+		    writer.println("\n\n" + "attempting to get data for " + item.getName() + "\n");
+		
+		    for(HistoricalQuote quote : item.getStock().getHistory()){
+
+			writer.println(quote.getSymbol() + quote.getOpen().doubleValue() + quote.getClose().doubleValue() + quote.getHigh().doubleValue() + quote.getLow().doubleValue() + "\n");
+		    }   
+		    
+		} catch(IOException e){
+		    e.printStackTrace();
+		}
+
+	    }
+
+	    writer.close();
+	    
+	} catch(IOException e){
+		e.printStackTrace();
 	}
     }
 }
