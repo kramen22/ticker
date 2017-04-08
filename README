@@ -1,0 +1,5 @@
+Created 2017 Nathan Kramer
+
+This is a fun little project hopefully that will end up with a lstm creating 40 day predictions on stocks based on the historical data offered by the Yahoo Finance API.
+
+Please include this file with any use of these source files. 
