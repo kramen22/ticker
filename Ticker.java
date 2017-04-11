@@ -9,7 +9,7 @@ public class Ticker{
 
     //list of stocks to collect data on
 
-    static String[] handles = {"AAPL", "CHK", "GOOGL"};
+    private static String[] handles = {"AAPL", "CHK", "GOOGL"};
 
     public static void main(String args[]){
 
@@ -30,7 +30,17 @@ public class Ticker{
 	Parser parser = new Parser(portfolio);
 
 	parser.printHistoricalData();
-	
+
+	DataEvaluator jim = new DataEvaluator(parser.getHistoricalData(0));
+
+	try{
+
+	    jim.evaluateData();
+
+	}catch(Exception e){
+	    e.printStackTrace();
+	}
+
     }
 
 }
